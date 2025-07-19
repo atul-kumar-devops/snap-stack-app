@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata: 
+  name: snap-stack-pvc-dynamic
+spec:
+  storageClassName: azurefile
+  resources: 
+    requests: 
+      storage: 2Gi
+  volumeMode: Filesystem
+  accessModes:
+    - ReadWriteMany

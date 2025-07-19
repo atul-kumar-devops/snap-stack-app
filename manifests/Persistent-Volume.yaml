@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata: 
+  name: snap-stack-pv
+spec:
+  accessModes: 
+    - ReadWriteMany # Allows multiple Pods to read from and write to the volume simultaneously
+                             # ReadWriteOnce -> Only one Pod can write at a time
+                             # ReadOnlyMany -> Multiple Pods can only read from the volume
+  azureFile:
+    secretName: snap-stack-storage-secret # Name of the Kubernetes Secret that stores Azure Storage credentials
+    shareName: snapstackfileshare         # Name of the Azure File share
+  capacity: 
+    storage: 5Gi # Total storage capacity allocated to this PersistentVolume
+  storageClassName: azurefile # StorageClass used to bind this volume to a PVC; must match the PVC's storageClassName
+  volumeMode: Filesystem # Azure File only supports filesystem mode (not block); this must be explicitly set or PVC binding will failapp

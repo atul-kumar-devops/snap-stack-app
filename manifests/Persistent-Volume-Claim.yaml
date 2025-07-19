@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata: 
+  name: snap-stack-pvc # Name of the PersistentVolumeClaim
+spec:
+  accessModes: 
+    - ReadWriteMany  # Must match the access mode defined in the associated PersistentVolume
+  resources: 
+    requests: 
+      storage: 1Gi # Requested storage size; in static provisioning, PVC binds one-to-one with the PV and can use the full capacity of the PV
+  storageClassName: azurefile # Must match the storageClassName defined in the PersistentVolume
+  volumeMode: Filesystem # Required for volume binding; must match the volumeMode of the PersistentVolume
+  volumeName: snap-stack-pv # Binds this PVC to a specific pre-provisioned PersistentVolume by name
